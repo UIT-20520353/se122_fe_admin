@@ -1,0 +1,52 @@
+.profileRight > button {
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #023e8a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+}
+.profileLeft > img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    margin-left: 100px;
+}
+.profileWrapper {
+    display: flex;
+}
+.profileLeft, .profileRight {
+    width: 20%;
+}
+.profileMiddle {
+    width: 60%;
+}
+.detailsContainer {
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+}
+.personalCartDetails {
+    align-items: center;
+}
+.personalCartScore {
+    margin-top: 10px;
+    font-weight: 500;
+}
+.targetSubWrapper {
+    width: 50%;
+}
+.profile-page > h1 {
+    margin-left: 100px;
+    margin-top: 60px;
+}
+.videoWrapper {
+    margin-left: 100px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}

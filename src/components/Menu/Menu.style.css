@@ -1,0 +1,23 @@
+.homeWrapper{
+    padding-left: 20px;
+    min-height: calc(100vh - 80px);
+    margin-right: 20px;
+    padding-top: 50px;
+    border-right: 1px solid #ccc;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    background-color: #fff;
+    z-index: 1000;
+}
+.customMenuItem {
+    width: 200px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: #1C5296;
+    font-weight: 500;
+}
+.menuSpacer {
+    width: 240px;
+    height: calc(100vh - 80px);
+}

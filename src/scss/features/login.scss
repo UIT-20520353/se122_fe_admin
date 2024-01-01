@@ -1,0 +1,68 @@
+.matching-page {
+  margin-top: calc($header-height + 20px);
+  margin-left: calc($sidebar-width + 20px);
+  width: 100%;
+}
+
+.login-page,
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form,
+.register-form {
+  width: 500px;
+  height: 600px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  &__footer {
+    font-size: 16px;
+    font-weight: 300;
+    color: #7d7d7d;
+    width: 100%;
+    text-align: center;
+    margin: 20px auto;
+
+    .link {
+      font-weight: 600;
+      color: #03045e;
+    }
+  }
+
+  .welcome {
+    font-size: 26px;
+    font-weight: 300;
+  }
+
+  .title {
+    margin-top: 32px;
+    margin-bottom: 40px;
+
+    h2 {
+      font-weight: 500;
+      font-size: 32px;
+    }
+    span {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+}
+
+.register-form {
+  width: 700px;
+  height: 700px;
+
+  .title {
+    margin-top: 16px;
+    margin-bottom: 20px;
+  }
+}

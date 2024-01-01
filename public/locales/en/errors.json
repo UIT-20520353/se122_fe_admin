@@ -1,0 +1,21 @@
+{
+  "defaultMessage": {
+    "title": "Error",
+    "message": "Something went wrong."
+  },
+  "error": {
+    "validate": {
+      "login": {
+        "invalid-credential": "The email or password provided is incorrect"
+      },
+      "email": {
+        "format": "Please enter a valid email address"
+      },
+      "user": {
+        "already-exist": "This email address is already associated with an account.",
+        "blocked": "Your account has been blocked",
+        "is-not-admin": "Access Denied: Your current account lacks administrative privileges. Please log in with an admin account to access this feature."
+      }
+    }
+  }
+}

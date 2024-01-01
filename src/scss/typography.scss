@@ -1,0 +1,128 @@
+@mixin createTypo($weight, $size, $lh, $ls: 0em) {
+  font-family: "Inter", "system-ui", sans-serif;
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $lh;
+  letter-spacing: $ls;
+}
+
+.h1-base {
+  @include createTypo(600, 48px, 56px);
+}
+
+.h2-base {
+  @include createTypo(600, 40px, 48px);
+}
+
+.h3-base {
+  @include createTypo(600, 32px, 42px);
+}
+
+.h4-base {
+  @include createTypo(600, 28px, 36px);
+}
+
+.h5-base {
+  @include createTypo(600, 22px, 32px);
+}
+
+.h6-base {
+  @include createTypo(600, 20px, 32px);
+}
+
+.h7-base {
+  @include createTypo(600, 18px, 26px);
+}
+
+.subtitle-1-base {
+  @include createTypo(400, 18px, 26px);
+}
+
+.body-semibold-1-base {
+  @include createTypo(600, 16px, 24px);
+}
+
+.body-regular-1-base {
+  @include createTypo(400, 16px, 24px);
+}
+
+.body-semibold-2-base {
+  @include createTypo(600, 14px, 22px);
+}
+
+.caption-1-base {
+  @include createTypo(400, 14px, 22px);
+}
+
+.caption-2-base {
+  @include createTypo(400, 12px, 20px);
+}
+
+.label-1-base {
+  @include createTypo(400, 12px, 14px);
+}
+
+.label-2-base {
+  @include createTypo(400, 10px, 12px);
+}
+
+.h1 {
+  @extend .h1-base;
+}
+
+.h2 {
+  @extend .h2-base;
+}
+
+.h3 {
+  @extend .h3-base;
+}
+
+.h4 {
+  @extend .h4-base;
+}
+
+.h5 {
+  @extend .h5-base;
+}
+
+.h6 {
+  @extend .h6-base;
+}
+
+.h7 {
+  @extend .h7-base;
+}
+
+.subtitle-1 {
+  @extend .subtitle-1-base;
+}
+
+.body-semibold-1 {
+  @extend .body-semibold-1-base;
+}
+
+.body-regular-1 {
+  @extend .body-regular-1-base;
+}
+
+.body-semibold-2 {
+  @extend .body-semibold-2-base;
+}
+
+.caption-1 {
+  @extend .caption-1-base;
+}
+
+.caption-2 {
+  @extend .caption-2-base;
+}
+
+.label-1 {
+  @extend .label-1-base;
+}
+
+.label-2 {
+  @extend .label-2-base;
+}

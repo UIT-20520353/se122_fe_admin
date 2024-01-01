@@ -1,0 +1,196 @@
+@mixin custom-responsive($mode, $minWidth, $maxWidth) {
+  @if $mode == below {
+    @media only screen and (max-width: $maxWidth) {
+      @content;
+    }
+  } @else if $mode == between {
+    @media only screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+      @content;
+    }
+  } @else if $mode == above {
+    @media only screen and (min-width: $minWidth) {
+      @content;
+    }
+  }
+}
+
+$mobile-xs: 320px;
+$mobile-medium: 380px;
+$mobile: 480px;
+$tablet-xs: 580px;
+$tablet-medium: 660px;
+$tablet: 768px;
+$laptop: 1024px;
+$desktop-small: 1100px;
+$desktop-medium: 1300px;
+$desktop: 1440px;
+$large-screen: 1900px;
+
+// NOTE: special screen use when need to
+@mixin for-small-mobile {
+  @media only screen and (max-width: $mobile-xs) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-mobile-and-down {
+  @media only screen and (max-width: $mobile-medium) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-mobile {
+  @media only screen and (min-width: #{$mobile-xs + 1px}) and (max-width: $mobile-medium) {
+    @content;
+  }
+}
+
+@mixin for-mobile {
+  @media only screen and (max-width: $mobile) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-small-tablet-and-down {
+  @media only screen and (max-width: $tablet-xs) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-small-tablet {
+  @media only screen and (min-width: #{$mobile + 1px}) and (max-width: $tablet-xs) {
+    @content;
+  }
+}
+
+@mixin for-small-tablet-and-up {
+  @media only screen and (min-width: #{$mobile + 1px}) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-tablet-and-down {
+  @media only screen and (max-width: $tablet-medium) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-tablet {
+  @media only screen and (min-width: #{$tablet-xs + 1px}) and (max-width: $tablet-medium) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-tablet-and-up {
+  @media only screen and (min-width: #{$tablet-xs + 1px}) and (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin for-tablet-and-down {
+  @media only screen and (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin for-tablet {
+  @media only screen and (min-width: #{$mobile + 1px}) and (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin for-tablet-and-up {
+  @media only screen and (min-width: #{$mobile + 1px}) {
+    @content;
+  }
+}
+
+@mixin for-laptop-and-down {
+  @media only screen and (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin for-laptop {
+  @media only screen and (min-width: #{$tablet + 1px}) and (max-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin for-laptop-and-up {
+  @media only screen and (min-width: #{$tablet + 1px}) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-small-desktop-and-down {
+  @media only screen and (max-width: $desktop-small) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-small-desktop {
+  @media only screen and (min-width: #{$laptop + 1px}) and (max-width: $desktop-small) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-desktop-and-down {
+  @media only screen and (max-width: $desktop-medium) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-desktop {
+  @media only screen and (min-width: #{$laptop + 1px}) and (max-width: $desktop-medium) {
+    @content;
+  }
+}
+
+// NOTE: special screen use when need to
+@mixin for-medium-desktop-and-up {
+  @media only screen and (min-width: #{$laptop + 1px}) {
+    @content;
+  }
+}
+
+@mixin for-desktop {
+  @media only screen and (min-width: #{$laptop + 1px}) and (max-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin for-desktop-and-up {
+  @media only screen and (min-width: #{$laptop + 1px}) {
+    @content;
+  }
+}
+
+@mixin for-large-screen {
+  @media only screen and (min-width: #{$desktop + 1px}) and (max-width: $large-screen) {
+    @content;
+  }
+}
+
+@mixin for-large-screen-and-up {
+  @media only screen and (min-width: #{$desktop + 1px}) {
+    @content;
+  }
+}
+
+@mixin for-extra-large-screen {
+  @media only screen and (min-width: #{$large-screen + 1px}) {
+    @content;
+  }
+}
