@@ -71,6 +71,10 @@ li {
   grid-column: span 1 / span 1;
 }
 
+.gap-1 {
+  gap: 4px;
+}
+
 .gap-2 {
   gap: 8px;
 }
@@ -94,6 +98,11 @@ li {
 .flex-row {
   display: flex;
   flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .align-start {
@@ -138,6 +147,10 @@ li {
 
 .font-bold {
   font-weight: 700 !important;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .submit-button {
@@ -215,4 +228,9 @@ li {
     font-weight: 400;
     color: red;
   }
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 500;
 }

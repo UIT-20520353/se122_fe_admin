@@ -1,4 +1,116 @@
 .test-management {
   padding-right: 30px;
   padding-bottom: 40px;
+
+  .button-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+
+    &__icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.edit {
+      background-color: #2d6a4f;
+
+      &:hover {
+        background-color: #3d8f6a;
+      }
+    }
+  }
+}
+
+.add-test-page {
+  padding-right: 30px;
+  padding-bottom: 40px;
+
+  &__title {
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  .test-information {
+    margin-top: 20px;
+    &__title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    &__body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 5px;
+
+        label {
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        input {
+          width: 100%;
+          height: 36px;
+          padding: 0 15px;
+          font-size: 16px;
+          border-radius: 6px;
+          border: 1px solid #adb5bd;
+          outline-color: #adb5bd;
+
+          &:focus {
+            border-color: #42c6ff;
+            outline-color: #42c6ff;
+          }
+
+          &::placeholder {
+            color: #bbb;
+          }
+        }
+      }
+    }
+  }
+
+  .questions {
+    margin-top: 20px;
+
+    &__header {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .add-question {
+        border: 0;
+        outline: none;
+        height: 36px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: all 0.3s;
+        background-color: #1eaae7;
+        color: #fff;
+        padding: 0 20px;
+
+        &:hover {
+          background-color: #148abe;
+        }
+      }
+    }
+  }
 }
