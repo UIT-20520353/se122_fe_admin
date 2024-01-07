@@ -59,8 +59,8 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
             >
               <p>
                 Hello,
-                <span>{` ${profile?.firstName || ""} ${
-                  profile?.lastName || ""
+                <span>{` ${profile?.first_name || ""} ${
+                  profile?.last_name || ""
                 }`}</span>
               </p>
               <p>Admin</p>

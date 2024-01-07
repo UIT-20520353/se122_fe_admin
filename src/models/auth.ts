@@ -21,8 +21,8 @@ export interface RegisterRequestModel {
 
 export interface UserProfileModel {
   id: number;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   address: string;
   gender: string;

@@ -14,3 +14,8 @@ export interface TestDetailModel {
   image: string | null;
   paragraph: string | null;
 }
+
+export interface TestRequest {
+  name: string;
+  level: string;
+}

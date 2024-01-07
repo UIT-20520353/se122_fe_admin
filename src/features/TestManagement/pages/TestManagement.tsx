@@ -9,6 +9,7 @@ import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
 import { BaseRequestQueryParam } from "../../../models/http";
 import { TestModel } from "../../../models/test";
 import { setLoading } from "../../../redux/globalSlice";
+import AddTest from "../components/AddTest";
 
 interface TestManagementProps {}
 
@@ -45,6 +46,7 @@ const TestManagement: React.FunctionComponent<TestManagementProps> = () => {
   const handlResponseError = useHandleResponseError();
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterProps>(initialFilter);
+  const [isOpenAddTest, setIsOpenAddTest] = useState<boolean>(false);
 
   const [data, setData] = useState<DataProps>({
     tests: [],
@@ -197,7 +199,7 @@ const TestManagement: React.FunctionComponent<TestManagementProps> = () => {
         <div className="search__block--column search-action">
           <button onClick={handleSearchClick}>Search</button>
           <button onClick={handleResetClick}>Reset</button>
-          <button onClick={handleResetClick}>Add</button>
+          <button onClick={() => setIsOpenAddTest(true)}>Add</button>
         </div>
       </div>
       <Table columns={columns} dataSource={data.tests} pagination={false} />
@@ -211,6 +213,12 @@ const TestManagement: React.FunctionComponent<TestManagementProps> = () => {
           />
         </div>
       )}
+
+      <AddTest
+        afterAdd={() => fetchData(getParams(initialFilter))}
+        isOpen={isOpenAddTest}
+        onClose={() => setIsOpenAddTest(false)}
+      />
     </div>
   );
 };

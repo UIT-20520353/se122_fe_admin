@@ -1,6 +1,6 @@
 import { ACCESS_TOKEN_LOCAL_STORAGE_KEY } from "../consts/app";
 import { BaseRequestQueryParam, HttpResponse } from "../models/http";
-import { TestDetailModel, TestModel } from "../models/test";
+import { TestDetailModel, TestModel, TestRequest } from "../models/test";
 import { getLocalStorage } from "../utils/localStorage";
 import axiosClient, { handleRequest } from "./axiosClient";
 
@@ -56,6 +56,18 @@ const testApi = {
       axiosClient.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getLocalStorage(
+            ACCESS_TOKEN_LOCAL_STORAGE_KEY
+          )}`,
+        },
+      })
+    );
+  },
+  createTest: (body: TestRequest): Promise<HttpResponse<unknown>> => {
+    const url = "/api/admin/tests";
+    return handleRequest(
+      axiosClient.post(url, body, {
+        headers: {
           Authorization: `Bearer ${getLocalStorage(
             ACCESS_TOKEN_LOCAL_STORAGE_KEY
           )}`,
