@@ -35,7 +35,7 @@ const HomePage: React.FunctionComponent<IHomePageProps> = () => {
   // const profile = useAppSelector(selectProfile);
 
   // const stompClient = useMemo(
-  //   () => over(new SockJS("http://localhost:8080/ws")),
+  //   () => over(new SockJS("http://localhost:8081/ws")),
   //   []
   // );
   // stompClient.debug = () => {};
