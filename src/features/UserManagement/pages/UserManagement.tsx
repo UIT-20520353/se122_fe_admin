@@ -244,7 +244,7 @@ const UserManagement: React.FunctionComponent<UserManagementProps> = () => {
           />
         </div>
         <div className="search__block--column search-action">
-          <button onClick={handleSearchClick}>Search</button>
+          <button onClick={handleSearchClick} id="search-btn">Search</button>
           <button onClick={handleResetClick}>Reset</button>
         </div>
       </div>
