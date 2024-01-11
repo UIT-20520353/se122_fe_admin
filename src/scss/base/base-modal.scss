@@ -116,3 +116,41 @@
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
+
+.modal--form {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  .ant-modal-content {
+    padding: 0;
+
+    .ant-modal-close {
+      .ant-modal-close-x {
+        .anticon {
+          svg {
+            fill: #fff;
+          }
+        }
+      }
+    }
+
+    .ant-modal-header {
+      padding: 20px 24px 15px;
+      background: #1eaae7;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+      .ant-modal-title {
+        .modal__title {
+          font-size: 20px;
+          font-weight: 400;
+          color: #fff;
+        }
+      }
+    }
+
+    .ant-modal-body {
+      padding: 5px 24px 20px;
+    }
+  }
+}

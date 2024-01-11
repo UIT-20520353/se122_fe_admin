@@ -1,26 +1,13 @@
-import { Select } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffectOnce } from "usehooks-ts";
 import testApi from "../../../api/testApi";
 import { useAppDispatch } from "../../../app/hooks";
-import { showSuccessModal } from "../../../components/modals/CommonModals";
 import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
-import { TestDetailModel } from "../../../models/test";
+import { TestDetail } from "../../../models/test";
 import { setLoading } from "../../../redux/globalSlice";
-import ListeningPart from "../components/ListeningPart";
-import ReadingPart from "../components/ReadingPart";
 
 interface ITestDetailProps {}
-
-const initialTestInfo: TestDetailModel = {
-  id: 0,
-  name: "",
-  level: "EASY",
-  questions: [],
-  image: null,
-  paragraph: null,
-};
 
 const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
   const { id } = useParams();
@@ -28,25 +15,25 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
   const handlResponseError = useHandleResponseError();
   const navigate = useNavigate();
 
-  const [testInfo, setTestInfo] = useState<TestDetailModel>(initialTestInfo);
+  const [testInfo, setTestInfo] = useState<TestDetail | null>(null);
 
-  const updateTest = async () => {
-    dispatch(setLoading("ADD"));
-    const { ok, body, error } = await testApi.updateTest(Number(id), testInfo);
-    dispatch(setLoading("REMOVE"));
+  // const updateTest = async () => {
+  //   dispatch(setLoading("ADD"));
+  //   const { ok, body, error } = await testApi.updateTest(Number(id), testInfo);
+  //   dispatch(setLoading("REMOVE"));
 
-    if (ok && body) {
-      setTestInfo({ ...body, questions: [], image: null, paragraph: null });
-      showSuccessModal({
-        content: "Test information updated successfully.",
-        onOk: () => {},
-        title: "Notification",
-      });
-      return;
-    }
+  //   if (ok && body) {
+  //     setTestInfo({ ...body, questions: [], image: null, paragraph: null });
+  //     showSuccessModal({
+  //       content: "Test information updated successfully.",
+  //       onOk: () => {},
+  //       title: "Notification",
+  //     });
+  //     return;
+  //   }
 
-    handlResponseError(error);
-  };
+  //   handlResponseError(error);
+  // };
 
   const fetchData = async () => {
     if (isNaN(Number(id))) {
@@ -71,7 +58,7 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
     fetchData();
   });
 
-  return (
+  return testInfo ? (
     <div className="test-detail">
       <div className="test-detail__header">
         <h3>Test Detail</h3>
@@ -92,7 +79,7 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
             value={testInfo.id}
           />
         </div>
-        <div className="column">
+        {/* <div className="column">
           <label htmlFor="test__name">Test Name</label>
           <input
             type="text"
@@ -125,9 +112,9 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
         <div></div>
         <div className="save-test-infor">
           <button onClick={updateTest}>Save changes</button>
-        </div>
+        </div> */}
       </div>
-      <ListeningPart
+      {/* <ListeningPart
         afterDelete={fetchData}
         questions={testInfo.questions.filter((q) => q.type === "LISTENING")}
         testId={id || ""}
@@ -137,9 +124,9 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
         questions={testInfo.questions.filter((q) => q.type === "READING")}
         testId={id || ""}
         test={testInfo}
-      />
+      /> */}
     </div>
-  );
+  ) : null;
 };
 
 export default TestDetail;

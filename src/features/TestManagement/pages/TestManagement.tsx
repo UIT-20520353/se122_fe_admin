@@ -109,12 +109,18 @@ const TestManagement: React.FunctionComponent<TestManagementProps> = () => {
       title: "Level",
       dataIndex: "level",
       key: "level",
-      render: (text: "EASY" | "MEDIUM") => (
+      render: (text: "A1" | "A2" | "B1" | "B2" | "C1" | "C2") => (
         <Tag
-          color={text === "EASY" ? "success" : "warning"}
+          color={
+            text === "A1" || text === "A2"
+              ? "success"
+              : text === "B1" || text === "B2"
+              ? "warning"
+              : "error"
+          }
           className="font-bold"
         >
-          {text === "EASY" ? "Easy" : "Medium"}
+          {text}
         </Tag>
       ),
     },
@@ -125,10 +131,10 @@ const TestManagement: React.FunctionComponent<TestManagementProps> = () => {
         <Tooltip placement="right" title="View detail">
           <Button
             type="primary"
-            className="button-action"
+            className="flex-center"
             onClick={() => navigate(`/tests/${record.id}`)}
           >
-            <FaEye className="button-action__icon" />
+            <FaEye style={{ fontSize: "16px" }} />
           </Button>
         </Tooltip>
       ),

@@ -1,6 +1,6 @@
 import { ACCESS_TOKEN_LOCAL_STORAGE_KEY } from "../consts/app";
 import { BaseRequestQueryParam, HttpResponse } from "../models/http";
-import { TestDetailModel, TestModel, TestRequest } from "../models/test";
+import { TestDetail, TestModel, TestRequest } from "../models/test";
 import { getLocalStorage } from "../utils/localStorage";
 import axiosClient, { handleRequest } from "./axiosClient";
 
@@ -20,7 +20,7 @@ const testApi = {
       })
     );
   },
-  getTest: (testId: number): Promise<HttpResponse<TestDetailModel>> => {
+  getTest: (testId: number): Promise<HttpResponse<TestDetail>> => {
     const url = `/api/admin/tests/${testId}`;
     return handleRequest(
       axiosClient.get(url, {

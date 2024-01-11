@@ -573,7 +573,8 @@
       width: 50%;
       background-color: #1eaae7;
       color: #fff;
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
       &:hover {
         background-color: #148abe;
@@ -590,8 +591,8 @@
 
     label,
     span {
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 500;
     }
 
     input,
