@@ -42,12 +42,10 @@ export interface Question {
 export interface QuestionDetail {
   id: number;
   text: string;
-  explain: string;
   answers: Answer[];
 }
 
 export interface Answer {
   id: number;
   content: string;
-  isCorrect: boolean;
 }

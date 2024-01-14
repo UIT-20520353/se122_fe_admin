@@ -67,52 +67,18 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
         </Link>
       </div>
       <div className="test-detail__infor-test">
-        <div className="column">
-          <label htmlFor="test__id">Test ID</label>
-          <input
-            type="text"
-            id="test__id"
-            name="test__id"
-            autoComplete="off"
-            placeholder="Enter your test id"
-            readOnly
-            value={testInfo.id}
-          />
+        <div className="row-info">
+          <span>Test ID:</span>
+          <span>{testInfo.id}</span>
         </div>
-        {/* <div className="column">
-          <label htmlFor="test__name">Test Name</label>
-          <input
-            type="text"
-            id="test__name"
-            name="test__name"
-            autoComplete="off"
-            placeholder="Enter your test name"
-            value={testInfo.name}
-            onChange={(e) =>
-              setTestInfo((prev) => ({ ...prev, name: e.target.value }))
-            }
-          />
+        <div className="row-info">
+          <span>Title:</span>
+          <span>{testInfo.title}</span>
         </div>
-        <div className="column">
-          <label htmlFor="search__level">Status</label>
-          <Select
-            id="search__level"
-            style={{ width: "100%", height: "36px" }}
-            options={[
-              { value: "EASY", label: "Easy" },
-              { value: "MEDIUM", label: "Medium" },
-            ]}
-            value={testInfo.level}
-            onChange={(value) =>
-              setTestInfo((prev) => ({ ...prev, level: value }))
-            }
-          />
+        <div className="row-info">
+          <span>Difficulty Level:</span>
+          <span>{testInfo.difficultyLevel}</span>
         </div>
-        <div></div>
-        <div></div>
-        <div className="save-test-infor">
-          <button onClick={updateTest}>Save changes</button>
-        </div> */}
       </div>
       {/* <ListeningPart
         afterDelete={fetchData}
