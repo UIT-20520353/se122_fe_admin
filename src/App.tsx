@@ -9,7 +9,6 @@ import Login from "./features/login/pages";
 import { selectLoading } from "./redux/globalSlice";
 import TestManagement from "./features/TestManagement/pages/TestManagement";
 import TestDetail from "./features/TestManagement/pages/TestDetail";
-import AddTest from "./features/TestManagement/pages/AddTest";
 
 interface IAppProps {}
 
@@ -24,7 +23,6 @@ const App: React.FunctionComponent<IAppProps> = () => {
           <Route index element={<UserManagement />} />
           <Route path="tests" element={<TestManagement />} />
           <Route path="tests/:id" element={<TestDetail />} />
-          <Route path="tests/add" element={<AddTest />} />
         </Route>
         <Route path={"*"} element={<NotFoundPage />} />
       </Routes>

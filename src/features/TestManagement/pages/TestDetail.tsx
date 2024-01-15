@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffectOnce } from "usehooks-ts";
 import testApi from "../../../api/testApi";
@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../app/hooks";
 import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
 import { TestDetail } from "../../../models/test";
 import { setLoading } from "../../../redux/globalSlice";
+import { EditTestInformation } from "../components";
 
 interface ITestDetailProps {}
 
@@ -16,6 +17,8 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
   const navigate = useNavigate();
 
   const [testInfo, setTestInfo] = useState<TestDetail | null>(null);
+  const [isOpenEditTestInformation, setOpenEditTestInformation] =
+    useState<boolean>(false);
 
   // const updateTest = async () => {
   //   dispatch(setLoading("ADD"));
@@ -59,39 +62,46 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
   });
 
   return testInfo ? (
-    <div className="test-detail">
-      <div className="test-detail__header">
-        <h3>Test Detail</h3>
-        <Link className="back" to={"/tests"}>
-          Back
-        </Link>
+    <Fragment>
+      <div className="test-detail">
+        <div className="test-detail__header">
+          <h3>Test Detail</h3>
+          <Link className="back" to={"/tests"}>
+            Back
+          </Link>
+        </div>
+        <div className="test-detail__infor-test">
+          <div className="row-info">
+            <span>Test ID:</span>
+            <span>{testInfo.id}</span>
+          </div>
+          <div className="row-info">
+            <span>Title:</span>
+            <span>{testInfo.title}</span>
+          </div>
+          <div className="row-info">
+            <span>Difficulty Level:</span>
+            <span>{testInfo.difficultyLevel}</span>
+          </div>
+          <div className="row-info">
+            <button
+              className="edit-test"
+              onClick={() => setOpenEditTestInformation(true)}
+            >
+              Edit
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="test-detail__infor-test">
-        <div className="row-info">
-          <span>Test ID:</span>
-          <span>{testInfo.id}</span>
-        </div>
-        <div className="row-info">
-          <span>Title:</span>
-          <span>{testInfo.title}</span>
-        </div>
-        <div className="row-info">
-          <span>Difficulty Level:</span>
-          <span>{testInfo.difficultyLevel}</span>
-        </div>
-      </div>
-      {/* <ListeningPart
-        afterDelete={fetchData}
-        questions={testInfo.questions.filter((q) => q.type === "LISTENING")}
-        testId={id || ""}
+      <EditTestInformation
+        isOpen={isOpenEditTestInformation}
+        onClose={() => setOpenEditTestInformation(false)}
+        afterAdd={fetchData}
+        id={testInfo.id}
+        title={testInfo.title}
+        difficultyLevel={testInfo.difficultyLevel}
       />
-      <ReadingPart
-        afterDelete={fetchData}
-        questions={testInfo.questions.filter((q) => q.type === "READING")}
-        testId={id || ""}
-        test={testInfo}
-      /> */}
-    </div>
+    </Fragment>
   ) : null;
 };
 

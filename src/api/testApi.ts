@@ -32,19 +32,28 @@ const testApi = {
       })
     );
   },
-  updateTest: (
-    testId: number,
-    test: TestModel
-  ): Promise<HttpResponse<TestModel>> => {
-    const url = `/api/admin/tests/${testId}`;
+  updateTestInformation: ({
+    id,
+    title,
+    difficultyLevel,
+  }: {
+    id: number;
+    title: string;
+    difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+  }): Promise<HttpResponse<TestModel>> => {
+    const url = `/api/admin/tests/${id}`;
     return handleRequest(
-      axiosClient.post(url, test, {
-        headers: {
-          Authorization: `Bearer ${getLocalStorage(
-            ACCESS_TOKEN_LOCAL_STORAGE_KEY
-          )}`,
-        },
-      })
+      axiosClient.post(
+        url,
+        { title, difficultyLevel },
+        {
+          headers: {
+            Authorization: `Bearer ${getLocalStorage(
+              ACCESS_TOKEN_LOCAL_STORAGE_KEY
+            )}`,
+          },
+        }
+      )
     );
   },
   addResource: (
