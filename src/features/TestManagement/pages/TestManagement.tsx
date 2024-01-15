@@ -1,7 +1,7 @@
 import { Button, Pagination, Select, Table, Tag, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import testApi from "../../../api/testApi";
 import { useAppDispatch } from "../../../app/hooks";
@@ -128,15 +128,27 @@ const TestManagement: React.FunctionComponent<TestManagementProps> = () => {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Tooltip placement="right" title="View detail">
-          <Button
-            type="primary"
-            className="flex-center"
-            onClick={() => navigate(`/tests/${record.id}`)}
-          >
-            <FaEye style={{ fontSize: "16px" }} />
-          </Button>
-        </Tooltip>
+        <div className="flex-row items-center gap-2">
+          <Tooltip placement="right" title="View detail">
+            <Button
+              type="primary"
+              className="flex-center"
+              onClick={() => navigate(`/tests/${record.id}`)}
+            >
+              <FaEye style={{ fontSize: "16px" }} />
+            </Button>
+          </Tooltip>
+          <Tooltip placement="right" title="Delete test">
+            <Button
+              type="primary"
+              className="flex-center"
+              danger
+              onClick={() => navigate(`/tests/${record.id}`)}
+            >
+              <FaTrash style={{ fontSize: "16px" }} />
+            </Button>
+          </Tooltip>
+        </div>
       ),
     },
   ];
