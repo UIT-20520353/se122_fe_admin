@@ -1,198 +1,116 @@
-import { Modal } from "antd";
-import React, { useEffect, useState } from "react";
-import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
-import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../../app/hooks";
-import {
-  showErrorModal,
-  showSuccessModal,
-} from "../../../components/modals/CommonModals";
+import { FormModal } from "../../../components/commons";
+import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { setLoading } from "../../../redux/globalSlice";
-import questionApi from "../../../api/questionApi";
+import AddQuestion from "./AddQuestion";
+
+const validationSchema = yup.object().shape({
+  type: yup
+    .string()
+    .oneOf(["SENTENCE_READING", "PARAGRAPH_READING"], "Invalid question type")
+    .required("Question type is required!"),
+  point: yup
+    .number()
+    .required("Point is required")
+    .min(1, "Please enter point between 1 and 10.")
+    .max(10, "Please enter point between 1 and 10.")
+    .typeError("Point must be a number"),
+  question: yup.string().required("Question is required"),
+});
 
 interface AddReadingQuestionProps {
-  isOpen: boolean;
+  open: boolean;
   onClose: () => void;
-  testId: string;
-  afterAdd: () => void;
+  isEntryTest?: boolean;
 }
 
-interface AnswerProps {
-  content: string;
-  isResult: boolean;
+export interface AddReadingQuestionFormProps {
+  type: "SENTENCE_READING" | "PARAGRAPH_READING";
+  point: number;
+  question: string;
 }
 
 const AddReadingQuestion: React.FunctionComponent<AddReadingQuestionProps> = ({
-  isOpen,
+  open,
   onClose,
-  testId,
-  afterAdd,
+  isEntryTest = false,
 }) => {
   const dispatch = useAppDispatch();
   const handlResponseError = useHandleResponseError();
-  const [question, setQuestion] = useState<string>("");
-  const [answers, setAnswers] = useState<AnswerProps[]>([]);
+  const {
+    reset,
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<AddReadingQuestionFormProps>({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      type: "SENTENCE_READING",
+      point: 0,
+      question: "",
+    },
+  });
 
-  const onInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const temp = [...answers];
-    temp[index].content = e.target.value;
-    setAnswers(temp);
-  };
-
-  const onCheckedChange = (index: number) => {
-    const temp = answers.map((a, i) =>
-      i === index ? { ...a, isResult: true } : { ...a, isResult: false }
-    );
-    setAnswers(temp);
-  };
-
-  const removeAnswer = (index: number) => {
-    setAnswers((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleAddAnswerClick = () => {
-    if (answers.length >= 5) return;
-    setAnswers((prev) => [...prev, { content: "", isResult: false }]);
-  };
-
-  const onSaveQuestion = async () => {
-    if (!question) {
-      showErrorModal({
-        content: "Please add question",
-        title: "Error",
-        onOk: () => {},
-      });
-      return;
-    }
-
-    if (!answers.length) {
-      showErrorModal({
-        content: "Please add answers for this question",
-        title: "Error",
-        onOk: () => {},
-      });
-      return;
-    }
-
-    const filledAnswers = answers.some((a) => !a.content);
-    if (filledAnswers) {
-      showErrorModal({
-        content: "Please fill content for answers",
-        title: "Error",
-        onOk: () => {},
-      });
-      return;
-    }
-
-    const isChooseAnswers = answers.some((a) => a.isResult);
-    if (!isChooseAnswers) {
-      showErrorModal({
-        content: "Please choose result for this question",
-        title: "Error",
-        onOk: () => {},
-      });
-      return;
-    }
-
+  const onSubmit = async (data: AddReadingQuestionFormProps) => {
     dispatch(setLoading("ADD"));
-    const { ok, error } = await questionApi.addQuestionReading({
-      testId,
-      question,
-      type: "READING",
-      answers,
-    });
     dispatch(setLoading("REMOVE"));
-
-    if (ok) {
-      showSuccessModal({
-        content: "Add question successfully.",
-        title: "Notification",
-        onOk: () => {},
-      });
-      onClose();
-      afterAdd();
-    } else {
-      handlResponseError(error);
-    }
+    console.log(data);
   };
-
-  useEffect(() => {
-    if (!isOpen) {
-      setQuestion("");
-      setAnswers([]);
-    }
-  }, [isOpen]);
 
   return (
-    <Modal
-      title="Add reading new question"
-      open={isOpen}
-      centered
-      onCancel={onClose}
-      footer={null}
-      maskClosable={false}
-      width={600}
-      destroyOnClose
-    >
-      <div className="modal-question listening">
-        <div className="row">
-          <label htmlFor="input__question">Enter your question</label>
-          <input
-            type="text"
-            id="input__question"
-            name="input__question"
-            autoComplete="off"
-            className="input"
-            placeholder="Enter your question"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+    <FormModal
+      open={open}
+      title={"Add new reading question"}
+      content={
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="modal-add-reading-question"
+        >
+          <div className="row">
+            <label htmlFor="select-question-type">Question Type</label>
+            <select id="select-question-type" {...register("type")}>
+              <option value="PARAGRAPH_READING">Paragraph reading</option>
+              <option value="SENTENCE_READING">Sentence reading</option>
+            </select>
+            {errors.type && (
+              <span className="error-message">{errors.type.message}</span>
+            )}
+          </div>
+          <AddQuestion
+            property={"question"}
+            register={register}
+            errors={errors}
+            label="Question"
           />
-        </div>
-        <div className="answers">
-          <div className="answers__header">
-            <p style={{ fontSize: "16px", fontWeight: "400" }}>Answers</p>
-            <button onClick={handleAddAnswerClick}>
-              <CiCirclePlus />
+          {isEntryTest && (
+            <div className="row">
+              <label htmlFor="input-question-point">Point</label>
+              <input
+                id="input-question-point"
+                type="text"
+                placeholder="Enter question point"
+                {...register("point")}
+              />
+              {errors.point && (
+                <span className="error-message">{errors.point.message}</span>
+              )}
+            </div>
+          )}
+          <div className="modal-add-reading-question__footer">
+            <button type="submit">Save</button>
+            <button type="button" onClick={onClose}>
+              Cancel
             </button>
           </div>
-          <div className="answers__body">
-            {answers.map((answer, index) => (
-              <div key={`question-${index}`} className="answer">
-                <input
-                  type="text"
-                  id={`question-text-${index}`}
-                  name={`question-text-${index}`}
-                  placeholder="Enter your answer"
-                  value={answer.content}
-                  onChange={(e) => onInputChange(e, index)}
-                  autoComplete="off"
-                />
-                <input
-                  type={"radio"}
-                  id={`question-${index}`}
-                  name={"question"}
-                  value={index}
-                  checked={answers[index].isResult}
-                  onChange={() => onCheckedChange(index)}
-                />
-                <button
-                  className="remove-answer"
-                  onClick={() => removeAnswer(index)}
-                >
-                  <CiCircleMinus />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="modal__footer">
-          <button onClick={onSaveQuestion}>Save</button>
-        </div>
-      </div>
-    </Modal>
+        </form>
+      }
+      onClose={onClose}
+      resetForm={reset}
+    />
   );
 };
 

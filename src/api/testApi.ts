@@ -39,7 +39,7 @@ const testApi = {
   }: {
     id: number;
     title: string;
-    difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+    difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "ENTRY_TEST";
   }): Promise<HttpResponse<TestModel>> => {
     const url = `/api/admin/tests/${id}`;
     return handleRequest(

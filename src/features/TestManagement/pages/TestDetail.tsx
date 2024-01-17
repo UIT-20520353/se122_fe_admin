@@ -13,6 +13,8 @@ import { setLoading } from "../../../redux/globalSlice";
 import { EditTestInformation } from "../components";
 import SentenseReading from "../components/SentenseReading";
 import ParagraphReading from "../components/ParagraphReading";
+import { FaPlus } from "react-icons/fa";
+import AddReadingQuestion from "../components/AddReadingQuestion";
 
 interface ITestDetailProps {}
 
@@ -24,6 +26,8 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
 
   const [testInfo, setTestInfo] = useState<TestDetail | null>(null);
   const [isOpenEditTestInformation, setOpenEditTestInformation] =
+    useState<boolean>(false);
+  const [isOpenAddReadingQuestion, setOpenReadingQuestion] =
     useState<boolean>(false);
 
   const fetchData = async () => {
@@ -62,6 +66,34 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
             TYPE_READING_QUESTION.includes(q.type)
           )
         : [],
+    [testInfo]
+  );
+
+  const totalListeningQuestions: number = useMemo(
+    () =>
+      testInfo
+        ? testInfo.questions
+            .filter((q) => TYPE_LISTENING_QUESTION.includes(q.type))
+            .reduce(
+              (preValue, currValue) =>
+                preValue + currValue.questionDetails.length,
+              0
+            )
+        : 0,
+    [testInfo]
+  );
+
+  const totalReadingQuestions: number = useMemo(
+    () =>
+      testInfo
+        ? testInfo.questions
+            .filter((q) => TYPE_READING_QUESTION.includes(q.type))
+            .reduce(
+              (preValue, currValue) =>
+                preValue + currValue.questionDetails.length,
+              0
+            )
+        : 0,
     [testInfo]
   );
 
@@ -105,7 +137,7 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
           </div>
           <div className="row-info">
             <span>Total Questions:</span>
-            <span>{`${totalQuestions} (${listeningQuestions.length} listening, ${readingQuestions.length} reading)`}</span>
+            <span>{`${totalQuestions} (${totalListeningQuestions} listening, ${totalReadingQuestions} reading)`}</span>
           </div>
           <div className="row-info">
             <button
@@ -117,20 +149,29 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
           </div>
         </div>
 
-        {listeningQuestions.length !== 0 && (
-          <div className="listening-part">
-            <div className="listening-part__header">
-              <h3>Listening Part</h3>
-            </div>
-            <div className="listening-part__content">dasda</div>
+        <div className="listening-part">
+          <div className="listening-part__header">
+            <h3>Listening Part</h3>
+            <button className="add-question">
+              <FaPlus style={{ color: "#fff" }} />
+            </button>
           </div>
-        )}
+          {listeningQuestions.length !== 0 && (
+            <div className="listening-part__content">dasda</div>
+          )}
+        </div>
 
-        {readingQuestions.length !== 0 && (
-          <div className="reading-part">
-            <div className="reading-part__header">
-              <h3>Reading Part</h3>
-            </div>
+        <div className="reading-part">
+          <div className="reading-part__header">
+            <h3>Reading Part</h3>
+            <button
+              className="add-question"
+              onClick={() => setOpenReadingQuestion(true)}
+            >
+              <FaPlus style={{ color: "#fff" }} />
+            </button>
+          </div>
+          {readingQuestions.length !== 0 && (
             <div className="reading-part__content">
               {readingQuestions
                 .filter((q) => q.type === "SENTENCE_READING")
@@ -149,8 +190,8 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
                   />
                 ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <EditTestInformation
         isOpen={isOpenEditTestInformation}
@@ -159,6 +200,12 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
         id={testInfo.id}
         title={testInfo.title}
         difficultyLevel={testInfo.difficultyLevel}
+        isEntryTest={testInfo.difficultyLevel === "ENTRY_TEST"}
+      />
+      <AddReadingQuestion
+        open={isOpenAddReadingQuestion}
+        onClose={() => setOpenReadingQuestion(false)}
+        isEntryTest={testInfo.difficultyLevel === "ENTRY_TEST"}
       />
     </Fragment>
   ) : null;

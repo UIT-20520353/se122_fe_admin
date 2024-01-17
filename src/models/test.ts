@@ -1,18 +1,7 @@
-import { QuestionModel } from "./question";
-
 export interface TestModel {
   id: number;
   name: string;
   level: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
-}
-
-export interface TestDetailModel {
-  id: number;
-  name: string;
-  level: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
-  questions: QuestionModel[];
-  image: string | null;
-  paragraph: string | null;
 }
 
 export interface TestRequest {
@@ -23,7 +12,7 @@ export interface TestRequest {
 export interface TestDetail {
   id: number;
   title: string;
-  difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+  difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "ENTRY_TEST";
   questions: Question[];
 }
 

@@ -14,7 +14,10 @@ const validationSchema = yup.object().shape({
   title: yup.string().required("Title is required!"),
   difficultyLevel: yup
     .string()
-    .oneOf(["A1", "A2", "B1", "B2", "C1", "C2"], "Invalid difficulty level")
+    .oneOf(
+      ["A1", "A2", "B1", "B2", "C1", "C2", "ENTRY_TEST"],
+      "Invalid difficulty level"
+    )
     .required("Difficulty level is required!"),
 });
 
@@ -24,18 +27,27 @@ interface EditTestInformationProps {
   afterAdd: () => void;
   id: number;
   title: string;
-  difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+  difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "ENTRY_TEST";
+  isEntryTest?: boolean;
 }
 
 interface EditTestForm {
   id: number;
   title: string;
-  difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+  difficultyLevel: "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "ENTRY_TEST";
 }
 
 const EditTestInformation: React.FunctionComponent<
   EditTestInformationProps
-> = ({ isOpen, onClose, afterAdd, id, title, difficultyLevel }) => {
+> = ({
+  isOpen,
+  onClose,
+  afterAdd,
+  id,
+  title,
+  difficultyLevel,
+  isEntryTest = false,
+}) => {
   const dispatch = useAppDispatch();
   const handlResponseError = useHandleResponseError();
   const {
@@ -103,13 +115,18 @@ const EditTestInformation: React.FunctionComponent<
           </div>
           <div className="row">
             <label htmlFor="select__level">Difficulty Level</label>
-            <select id="select__level" {...register("difficultyLevel")}>
+            <select
+              disabled={isEntryTest}
+              id="select__level"
+              {...register("difficultyLevel")}
+            >
               <option value="A1">A1</option>
               <option value="A2">A2</option>
               <option value="B1">B1</option>
               <option value="B2">B2</option>
               <option value="C1">C1</option>
               <option value="C2">C2</option>
+              {isEntryTest && <option value="ENTRY_TEST">Entry test</option>}
             </select>
           </div>
           <div className="modal-add-test__footer">

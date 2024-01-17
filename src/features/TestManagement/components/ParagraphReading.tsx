@@ -31,7 +31,10 @@ const ParagraphReading: React.FunctionComponent<ParagraphReadingProps> = ({
       </div>
       <div className="paragraph-reading__right">
         {question.questionDetails.map((questionDetail) => (
-          <div className="question">
+          <div
+            className="question"
+            key={`paragraph-reading-question-detail-${questionDetail.id}`}
+          >
             <p className="question__text">{questionDetail.text}</p>
             <div className="answers">
               {questionDetail.answers.map((a, index) => (
