@@ -1,0 +1,177 @@
+.sentense-reading {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  &:not(:first-child) {
+    margin-top: 15px;
+  }
+
+  .question {
+    font-size: 16px;
+  }
+
+  .btn-edit {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1eaae7;
+    transition: all 0.3s;
+    border-radius: 5px;
+    color: #fff;
+
+    &:hover {
+      background-color: #148abe;
+    }
+  }
+
+  .answers {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    .answer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      font-size: 16px;
+
+      &.correct {
+        border: 1px solid #50af31;
+        border-radius: 5px;
+        color: #50af31;
+        font-weight: 700;
+      }
+    }
+
+    .explain {
+      font-size: 16px;
+      padding: 5px 0;
+
+      span {
+        &:first-child {
+          font-weight: 600;
+        }
+      }
+
+      p {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.paragraph-reading {
+  margin-top: 15px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+
+  &__left {
+    padding-right: 5px;
+    max-height: 500px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #bbb;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    p {
+      white-space: pre-line;
+    }
+  }
+
+  &__right {
+    max-height: 500px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #bbb;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .question {
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
+
+      &__text {
+        font-size: 16px;
+      }
+    }
+
+    .answers {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+
+      .answer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        font-size: 16px;
+
+        &.correct {
+          border: 1px solid #50af31;
+          border-radius: 5px;
+          color: #50af31;
+          font-weight: 700;
+        }
+      }
+
+      .explain {
+        font-size: 16px;
+        padding: 5px 0;
+
+        span {
+          &:first-child {
+            font-weight: 600;
+          }
+        }
+
+        p {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

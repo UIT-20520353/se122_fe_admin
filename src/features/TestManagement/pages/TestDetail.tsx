@@ -3,14 +3,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffectOnce } from "usehooks-ts";
 import testApi from "../../../api/testApi";
 import { useAppDispatch } from "../../../app/hooks";
-import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
-import { Question, TestDetail } from "../../../models/test";
-import { setLoading } from "../../../redux/globalSlice";
-import { EditTestInformation } from "../components";
 import {
   TYPE_LISTENING_QUESTION,
   TYPE_READING_QUESTION,
 } from "../../../consts/app";
+import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
+import { Question, TestDetail } from "../../../models/test";
+import { setLoading } from "../../../redux/globalSlice";
+import { EditTestInformation } from "../components";
+import SentenseReading from "../components/SentenseReading";
+import ParagraphReading from "../components/ParagraphReading";
 
 interface ITestDetailProps {}
 
@@ -63,6 +65,18 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
     [testInfo]
   );
 
+  const totalQuestions: number = useMemo(
+    () =>
+      testInfo
+        ? testInfo.questions.reduce(
+            (preValue, currValue) =>
+              preValue + currValue.questionDetails.length,
+            0
+          )
+        : 0,
+    [testInfo]
+  );
+
   useEffectOnce(() => {
     fetchData();
   });
@@ -91,7 +105,7 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
           </div>
           <div className="row-info">
             <span>Total Questions:</span>
-            <span>{`${testInfo.questions.length} (${listeningQuestions.length} listening, ${readingQuestions.length} reading)`}</span>
+            <span>{`${totalQuestions} (${listeningQuestions.length} listening, ${readingQuestions.length} reading)`}</span>
           </div>
           <div className="row-info">
             <button
@@ -117,7 +131,24 @@ const TestDetail: React.FunctionComponent<ITestDetailProps> = () => {
             <div className="reading-part__header">
               <h3>Reading Part</h3>
             </div>
-            <div className="reading-part__content">dasda</div>
+            <div className="reading-part__content">
+              {readingQuestions
+                .filter((q) => q.type === "SENTENCE_READING")
+                .map((q) => (
+                  <SentenseReading
+                    question={q}
+                    key={`sentense-question-${q.id}`}
+                  />
+                ))}
+              {readingQuestions
+                .filter((q) => q.type === "PARAGRAPH_READING")
+                .map((q) => (
+                  <ParagraphReading
+                    question={q}
+                    key={`paragraph-reading-${q.id}`}
+                  />
+                ))}
+            </div>
           </div>
         )}
       </div>
