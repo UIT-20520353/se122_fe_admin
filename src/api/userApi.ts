@@ -1,6 +1,6 @@
 import { ACCESS_TOKEN_LOCAL_STORAGE_KEY } from "../consts/app";
 import { BaseRequestQueryParam, HttpResponse } from "../models/http";
-import { UserModel } from "../models/user";
+import { UserDetail, UserModel } from "../models/user";
 import { getLocalStorage } from "../utils/localStorage";
 import axiosClient, { handleRequest } from "./axiosClient";
 
@@ -38,6 +38,18 @@ const userApi = {
     const url = `/api/admin/users/${userId}/unblock`;
     return handleRequest(
       axiosClient.post(url, null, {
+        headers: {
+          Authorization: `Bearer ${getLocalStorage(
+            ACCESS_TOKEN_LOCAL_STORAGE_KEY
+          )}`,
+        },
+      })
+    );
+  },
+  getUserDetail: (userId: number): Promise<HttpResponse<UserDetail>> => {
+    const url = `/api/admin/users/${userId}`;
+    return handleRequest(
+      axiosClient.get(url, {
         headers: {
           Authorization: `Bearer ${getLocalStorage(
             ACCESS_TOKEN_LOCAL_STORAGE_KEY

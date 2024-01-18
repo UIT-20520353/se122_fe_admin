@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import testApi from "../../../api/testApi";
 import { useAppDispatch } from "../../../app/hooks";
 import { showSuccessModal } from "../../../components/modals/CommonModals";
@@ -41,10 +41,10 @@ const AddTest: React.FunctionComponent<AddTestProps> = ({
     }
   };
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     setName("");
     setLevel("A1");
-  };
+  }, []);
 
   return (
     <FormModal

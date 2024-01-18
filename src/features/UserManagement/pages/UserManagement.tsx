@@ -7,7 +7,8 @@ import { useHandleResponseError } from "../../../hooks/useHandleResponseError";
 import { BaseRequestQueryParam } from "../../../models/http";
 import { UserModel } from "../../../models/user";
 import { setLoading } from "../../../redux/globalSlice";
-import { FaLock, FaLockOpen } from "react-icons/fa";
+import { FaLock, FaLockOpen, FaEye } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface UserManagementProps {}
 
@@ -42,6 +43,7 @@ const getParams = (filter: FilterProps): BaseRequestQueryParam => ({
 
 const UserManagement: React.FunctionComponent<UserManagementProps> = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handlResponseError = useHandleResponseError();
 
   const [data, setData] = useState<DataProps>({
@@ -158,9 +160,23 @@ const UserManagement: React.FunctionComponent<UserManagementProps> = () => {
       key: "age",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Level",
+      dataIndex: "level",
+      key: "level",
+      render: (text) => (
+        <Tag
+          color={
+            text === "A1" || text === "A2"
+              ? "success"
+              : text === "C1" || text === "C2" || text === "ENTRY_TEST"
+              ? "error"
+              : "warning"
+          }
+          className="font-bold"
+        >
+          {text === "ENTRY_TEXT" ? "Entry test" : text}
+        </Tag>
+      ),
     },
     {
       title: "Status",
@@ -179,22 +195,31 @@ const UserManagement: React.FunctionComponent<UserManagementProps> = () => {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Button
-          type="primary"
-          className="button-action"
-          danger={record.status === "ACTIVE"}
-          onClick={
-            record.status === "ACTIVE"
-              ? () => handleBlockClick(record.id)
-              : () => handleUnblockClick(record.id)
-          }
-        >
-          {record.status === "ACTIVE" ? (
-            <FaLock className="button-action__icon" />
-          ) : (
-            <FaLockOpen className="button-action__icon" />
-          )}
-        </Button>
+        <div className="flex-row items-center gap-2">
+          <Button
+            type="primary"
+            className="button-action"
+            danger={record.status === "ACTIVE"}
+            onClick={
+              record.status === "ACTIVE"
+                ? () => handleBlockClick(record.id)
+                : () => handleUnblockClick(record.id)
+            }
+          >
+            {record.status === "ACTIVE" ? (
+              <FaLock className="button-action__icon" />
+            ) : (
+              <FaLockOpen className="button-action__icon" />
+            )}
+          </Button>
+          <Button
+            type="primary"
+            className="button-action"
+            onClick={() => navigate(`/users/${record.id}`)}
+          >
+            <FaEye className="button-action__icon" />
+          </Button>
+        </div>
       ),
     },
   ];
@@ -244,7 +269,9 @@ const UserManagement: React.FunctionComponent<UserManagementProps> = () => {
           />
         </div>
         <div className="search__block--column search-action">
-          <button onClick={handleSearchClick} id="search-btn">Search</button>
+          <button onClick={handleSearchClick} id="search-btn">
+            Search
+          </button>
           <button onClick={handleResetClick}>Reset</button>
         </div>
       </div>
